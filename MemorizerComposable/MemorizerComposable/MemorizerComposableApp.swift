@@ -11,7 +11,7 @@ import SwiftUI
 struct MemorizerComposableApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MemoryGameBuilder().build()
         }
     }
 }

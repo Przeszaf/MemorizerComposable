@@ -7,15 +7,17 @@
 
 import Foundation
 
-struct MemoryGameState<CardContent>: Equatable {
-    private(set) var cards: Array<MemoryGameCard<CardContent>>
+struct MemoryGameState: Equatable {
+    var cards: Array<MemoryGameCard>
+    var indexOfTheOneAndOnlyFaceUpCard: Int?
     
-    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
+    
+    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> String) {
         cards = Array<MemoryGameCard>()
         for pairIndex in 0..<numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
-            cards.append(MemoryGameCard<CardContent>(content: content))
-            cards.append(MemoryGameCard<CardContent>(content: content))
+            cards.append(MemoryGameCard(content: content, id: pairIndex * 2))
+            cards.append(MemoryGameCard(content: content, id: pairIndex * 2 + 1))
         }
     }
 }

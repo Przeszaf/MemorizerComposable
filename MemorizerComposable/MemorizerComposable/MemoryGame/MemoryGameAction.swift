@@ -8,7 +8,7 @@
 import Foundation
 
 enum MemoryGameAction: Equatable {
-    case chooseCard(card: MemoryGameCard)
+    case choose(card: MemoryGameCard)
 }
 
 struct ApiError: Error, Equatable {}
