@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    let emojis = ["👻", "🎃", "🕷", "🧟‍♂️", "🍬","🧙‍♂️", "🍫", "🥧", "🥦", "🐲", "🕸", "🧚"]
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
+                ForEach(emojis, id: \.self) { (emoji) in
+                    CardView(emoji: emoji).aspectRatio(2/3, contentMode: .fit)
+                }
+            }
+            Spacer()
+        }.padding(.horizontal)
     }
 }
 

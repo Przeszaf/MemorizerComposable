@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,14 @@
 		C579E87926A87B1200430FC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C579E87826A87B1200430FC0 /* Preview Assets.xcassets */; };
 		C579E88426A87B1200430FC0 /* MemorizerComposableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E88326A87B1200430FC0 /* MemorizerComposableTests.swift */; };
 		C579E88F26A87B1200430FC0 /* MemorizerComposableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E88E26A87B1200430FC0 /* MemorizerComposableUITests.swift */; };
+		C579E89F26A87F3C00430FC0 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E89E26A87F3C00430FC0 /* CardView.swift */; };
+		C579E8A226A88A3900430FC0 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C579E8A126A88A3900430FC0 /* ComposableArchitecture */; };
+		C579E8A526A88A6A00430FC0 /* MemoryGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E8A426A88A6A00430FC0 /* MemoryGameState.swift */; };
+		C579E8A726A88A7300430FC0 /* MemoryGameAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E8A626A88A7300430FC0 /* MemoryGameAction.swift */; };
+		C579E8A926A88A7B00430FC0 /* MemoryGameEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E8A826A88A7B00430FC0 /* MemoryGameEnvironment.swift */; };
+		C579E8AB26A88A8500430FC0 /* MemoryGameReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E8AA26A88A8500430FC0 /* MemoryGameReducer.swift */; };
+		C579E8AD26A88E7B00430FC0 /* MemoryGameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E8AC26A88E7B00430FC0 /* MemoryGameCard.swift */; };
+		C579E8AF26A8941B00430FC0 /* MemoryGameBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E8AE26A8941B00430FC0 /* MemoryGameBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +53,13 @@
 		C579E88A26A87B1200430FC0 /* MemorizerComposableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemorizerComposableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C579E88E26A87B1200430FC0 /* MemorizerComposableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizerComposableUITests.swift; sourceTree = "<group>"; };
 		C579E89026A87B1200430FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C579E89E26A87F3C00430FC0 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		C579E8A426A88A6A00430FC0 /* MemoryGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameState.swift; sourceTree = "<group>"; };
+		C579E8A626A88A7300430FC0 /* MemoryGameAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameAction.swift; sourceTree = "<group>"; };
+		C579E8A826A88A7B00430FC0 /* MemoryGameEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameEnvironment.swift; sourceTree = "<group>"; };
+		C579E8AA26A88A8500430FC0 /* MemoryGameReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameReducer.swift; sourceTree = "<group>"; };
+		C579E8AC26A88E7B00430FC0 /* MemoryGameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameCard.swift; sourceTree = "<group>"; };
+		C579E8AE26A8941B00430FC0 /* MemoryGameBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C579E8A226A88A3900430FC0 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,11 +111,13 @@
 		C579E87026A87B1000430FC0 /* MemorizerComposable */ = {
 			isa = PBXGroup;
 			children = (
+				C579E8A326A88A5800430FC0 /* MemoryGame */,
 				C579E87126A87B1000430FC0 /* MemorizerComposableApp.swift */,
 				C579E87326A87B1000430FC0 /* ContentView.swift */,
 				C579E87526A87B1200430FC0 /* Assets.xcassets */,
 				C579E87A26A87B1200430FC0 /* Info.plist */,
 				C579E87726A87B1200430FC0 /* Preview Content */,
+				C579E89E26A87F3C00430FC0 /* CardView.swift */,
 			);
 			path = MemorizerComposable;
 			sourceTree = "<group>";
@@ -130,6 +148,19 @@
 			path = MemorizerComposableUITests;
 			sourceTree = "<group>";
 		};
+		C579E8A326A88A5800430FC0 /* MemoryGame */ = {
+			isa = PBXGroup;
+			children = (
+				C579E8A426A88A6A00430FC0 /* MemoryGameState.swift */,
+				C579E8A626A88A7300430FC0 /* MemoryGameAction.swift */,
+				C579E8A826A88A7B00430FC0 /* MemoryGameEnvironment.swift */,
+				C579E8AA26A88A8500430FC0 /* MemoryGameReducer.swift */,
+				C579E8AC26A88E7B00430FC0 /* MemoryGameCard.swift */,
+				C579E8AE26A8941B00430FC0 /* MemoryGameBuilder.swift */,
+			);
+			path = MemoryGame;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,6 +177,9 @@
 			dependencies = (
 			);
 			name = MemorizerComposable;
+			packageProductDependencies = (
+				C579E8A126A88A3900430FC0 /* ComposableArchitecture */,
+			);
 			productName = MemorizerComposable;
 			productReference = C579E86E26A87B1000430FC0 /* MemorizerComposable.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +251,9 @@
 				Base,
 			);
 			mainGroup = C579E86526A87B1000430FC0;
+			packageReferences = (
+				C579E8A026A88A3900430FC0 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = C579E86F26A87B1000430FC0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,7 +296,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C579E8A726A88A7300430FC0 /* MemoryGameAction.swift in Sources */,
+				C579E8A526A88A6A00430FC0 /* MemoryGameState.swift in Sources */,
+				C579E8AB26A88A8500430FC0 /* MemoryGameReducer.swift in Sources */,
+				C579E8A926A88A7B00430FC0 /* MemoryGameEnvironment.swift in Sources */,
+				C579E8AD26A88E7B00430FC0 /* MemoryGameCard.swift in Sources */,
+				C579E8AF26A8941B00430FC0 /* MemoryGameBuilder.swift in Sources */,
 				C579E87426A87B1000430FC0 /* ContentView.swift in Sources */,
+				C579E89F26A87F3C00430FC0 /* CardView.swift in Sources */,
 				C579E87226A87B1000430FC0 /* MemorizerComposableApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +624,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C579E8A026A88A3900430FC0 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.22.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C579E8A126A88A3900430FC0 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C579E8A026A88A3900430FC0 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C579E86626A87B1000430FC0 /* Project object */;
 }
