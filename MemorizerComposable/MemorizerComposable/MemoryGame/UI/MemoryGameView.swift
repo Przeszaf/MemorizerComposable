@@ -10,26 +10,26 @@ import SwiftUI
 
 struct MemoryGameView: View {
     let store: Store<MemoryGameState, MemoryGameAction>
-    
+
     struct State: Equatable {
         var cards: [MemoryGameCard]
     }
-    
+
     enum Action: Equatable {
         case choose(card: MemoryGameCard)
     }
 
     var body: some View {
         WithViewStore(self.store.scope(state: State.init, action: MemoryGameAction.init)) { viewStore in
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
-                    ForEach(viewStore.cards) { card in
-                        CardView(card: card)
-                            .aspectRatio(2 / 3, contentMode: .fit)
-                            .onTapGesture {
-                                viewStore.send(.choose(card: card))
-                            }
-                    }
+            AspectVGrid(items: viewStore.cards, aspectRatio: 2 / 3) { card in
+                if card.isMatched && !card.isFaceUp {
+                    Rectangle().opacity(0)
+                } else {
+                    CardView(card: card)
+                        .padding(4)
+                        .onTapGesture {
+                            viewStore.send(.choose(card: card))
+                        }
                 }
             }
             .foregroundColor(.red)

@@ -12,11 +12,4 @@ struct MemoryGameCard: Identifiable, Equatable {
     var isMatched: Bool = false
     let content: String
     let id: Int
-
-    static func == (lhs: MemoryGameCard, rhs: MemoryGameCard) -> Bool {
-        lhs.id == rhs.id &&
-            lhs.isFaceUp == rhs.isFaceUp &&
-            lhs.isMatched == rhs.isMatched &&
-            lhs.content == rhs.content
-    }
 }
