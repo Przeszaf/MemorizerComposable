@@ -8,13 +8,15 @@
 import Foundation
 
 struct MemoryGameState: Equatable {
-    var cards: Array<MemoryGameCard>
-    var indexOfTheOneAndOnlyFaceUpCard: Int?
-    
-    
+    var cards: [MemoryGameCard]
+    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get { cards.indices.filter { cards[$0].isFaceUp == true }.oneAndOnly }
+        set { cards.indices.forEach { cards[$0].isFaceUp = $0 == newValue } }
+    }
+
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> String) {
-        cards = Array<MemoryGameCard>()
-        for pairIndex in 0..<numberOfPairsOfCards {
+        cards = []
+        for pairIndex in 0 ..< numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
             cards.append(MemoryGameCard(content: content, id: pairIndex * 2))
             cards.append(MemoryGameCard(content: content, id: pairIndex * 2 + 1))

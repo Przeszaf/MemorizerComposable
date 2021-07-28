@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C554986F26B17329006F9829 /* MemoryGameView+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554986E26B17329006F9829 /* MemoryGameView+State.swift */; };
 		C554987126B17336006F9829 /* MemoryGameView+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554987026B17335006F9829 /* MemoryGameView+Action.swift */; };
+		C554987626B1810C006F9829 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554987526B1810C006F9829 /* Array.swift */; };
 		C579E87226A87B1000430FC0 /* MemorizerComposableApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E87126A87B1000430FC0 /* MemorizerComposableApp.swift */; };
 		C579E87426A87B1000430FC0 /* MemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C579E87326A87B1000430FC0 /* MemoryGameView.swift */; };
 		C579E87626A87B1200430FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C579E87526A87B1200430FC0 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		C554986E26B17329006F9829 /* MemoryGameView+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoryGameView+State.swift"; sourceTree = "<group>"; };
 		C554987026B17335006F9829 /* MemoryGameView+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoryGameView+Action.swift"; sourceTree = "<group>"; };
+		C554987526B1810C006F9829 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		C579E86E26A87B1000430FC0 /* MemorizerComposable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemorizerComposable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C579E87126A87B1000430FC0 /* MemorizerComposableApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizerComposableApp.swift; sourceTree = "<group>"; };
 		C579E87326A87B1000430FC0 /* MemoryGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		C554987426B18102006F9829 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C554987526B1810C006F9829 /* Array.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C579E86526A87B1000430FC0 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 		C579E87026A87B1000430FC0 /* MemorizerComposable */ = {
 			isa = PBXGroup;
 			children = (
+				C554987426B18102006F9829 /* Extensions */,
 				C579E8A326A88A5800430FC0 /* MemoryGame */,
 				C579E87126A87B1000430FC0 /* MemorizerComposableApp.swift */,
 				C579E87526A87B1200430FC0 /* Assets.xcassets */,
@@ -335,6 +346,7 @@
 				C579E8AD26A88E7B00430FC0 /* MemoryGameCard.swift in Sources */,
 				C579E8AF26A8941B00430FC0 /* MemoryGameBuilder.swift in Sources */,
 				C579E87426A87B1000430FC0 /* MemoryGameView.swift in Sources */,
+				C554987626B1810C006F9829 /* Array.swift in Sources */,
 				C579E89F26A87F3C00430FC0 /* CardView.swift in Sources */,
 				C579E87226A87B1000430FC0 /* MemorizerComposableApp.swift in Sources */,
 			);

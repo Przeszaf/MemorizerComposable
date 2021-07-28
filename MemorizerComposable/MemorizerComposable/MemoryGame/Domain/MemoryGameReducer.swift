@@ -20,14 +20,10 @@ class MemoryGameReducer {
                     state.cards[index].isMatched = true
                     state.cards[potentialMatchIndex].isMatched = true
                 }
-                state.indexOfTheOneAndOnlyFaceUpCard = nil
+                state.cards[index].isFaceUp = true
             } else {
-                for index in state.cards.indices {
-                    state.cards[index].isFaceUp = false
-                }
                 state.indexOfTheOneAndOnlyFaceUpCard = index
             }
-            state.cards[index].isFaceUp.toggle()
             return .none
         }
     }
