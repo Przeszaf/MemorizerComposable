@@ -10,9 +10,17 @@ import SwiftUI
 
 struct MemoryGameView: View {
     let store: Store<MemoryGameState, MemoryGameAction>
+    
+    struct State: Equatable {
+        var cards: [MemoryGameCard]
+    }
+    
+    enum Action: Equatable {
+        case choose(card: MemoryGameCard)
+    }
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store.scope(state: State.init, action: MemoryGameAction.init)) { viewStore in
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
                     ForEach(viewStore.cards) { card in

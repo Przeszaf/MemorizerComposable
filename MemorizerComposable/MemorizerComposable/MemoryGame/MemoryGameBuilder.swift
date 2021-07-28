@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MemoryGameBuilder {
-    let emojis = ["👻", "🎃", "🕷", "🧟‍♂️", "🍬","🧙‍♂️", "🍫", "🥧", "🥦", "🐲", "🕸", "🧚"]
+    private let emojis = ["👻", "🎃", "🕷", "🧟‍♂️", "🍬","🧙‍♂️", "🍫", "🥧", "🥦", "🐲", "🕸", "🧚"]
     
     func build() -> some View {
         return MemoryGameView(store: Store(initialState: MemoryGameState(numberOfPairsOfCards: 4, createCardContent: { pairIndex in

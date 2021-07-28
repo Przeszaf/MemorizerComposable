@@ -10,9 +10,8 @@ import Foundation
 struct MemoryGameCard: Identifiable, Equatable {
     var isFaceUp: Bool = false
     var isMatched: Bool = false
-    var content: String
-
-    var id: Int
+    let content: String
+    let id: Int
 
     static func == (lhs: MemoryGameCard, rhs: MemoryGameCard) -> Bool {
         lhs.id == rhs.id &&
