@@ -12,10 +12,14 @@ struct MemoryGameBuilder {
     private let emojis = ["👻", "🎃", "🕷", "🧟‍♂️", "🍬","🧙‍♂️", "🍫", "🥧", "🥦", "🐲", "🕸", "🧚"]
     
     func build() -> some View {
-        return MemoryGameView(store: Store(initialState: MemoryGameState(numberOfPairsOfCards: 8, createCardContent: { pairIndex in
-            return emojis[pairIndex]
-        }),
+        return MemoryGameView(store: Store(initialState: getInitialState(),
         reducer: MemoryGameReducer.appReducer,
         environment: MemoryGameEnvironment()))
+    }
+    
+    func getInitialState() -> MemoryGameState {
+        MemoryGameState(numberOfPairsOfCards: 8, createCardContent: { pairIndex in
+            return emojis[pairIndex]
+        })
     }
 }

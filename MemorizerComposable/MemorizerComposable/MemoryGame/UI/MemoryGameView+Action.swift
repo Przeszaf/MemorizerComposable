@@ -8,10 +8,14 @@
 import Foundation
 
 extension MemoryGameAction {
-    init(viewAction: MemoryGameView.Action) {
+    init(viewAction: MemoryGameView.ViewAction) {
         switch viewAction {
         case .choose(let card):
             self = .choose(card: card)
+        case .shuffle:
+            self = .shuffle
+        case .restart:
+            self = .restart
         }
     }
 }

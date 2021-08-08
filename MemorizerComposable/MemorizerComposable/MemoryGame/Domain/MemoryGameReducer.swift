@@ -25,6 +25,12 @@ class MemoryGameReducer {
                 state.indexOfTheOneAndOnlyFaceUpCard = index
             }
             return .none
+        case .shuffle:
+            state.cards.shuffle()
+            return .none
+        case .restart:
+            state = MemoryGameBuilder().getInitialState()
+            return .none
         }
     }
 }

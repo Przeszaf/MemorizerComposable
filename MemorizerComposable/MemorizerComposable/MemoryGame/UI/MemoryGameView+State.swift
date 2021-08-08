@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension MemoryGameView.State {
+extension MemoryGameView.ViewState {
     init(state: MemoryGameState) {
         self.init(cards: state.cards)
     }

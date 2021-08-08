@@ -9,13 +9,30 @@ import SwiftUI
 
 struct CardView: View {
     let card: MemoryGameCard
+    
+    @State private var animatedBonusRemaining : Double = 0
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: 120 - 90))
-                    .padding(DrawingConstants.circlePadding)
-                    .opacity(DrawingConstants.circleOpacity)
+                Group {
+                    if card.isConsumingBonusTime {
+                        Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: -animatedBonusRemaining * 360 - 90))
+                            .onAppear {
+                                print(card.bonusRemaining)
+                                animatedBonusRemaining = card.bonusRemaining
+                                withAnimation(.linear(duration: card.bonusTimeRemaining)) {
+                                    animatedBonusRemaining = 0
+                                }
+                            }
+                    } else {
+                        // ERROR HERE - SHOULD BE -card.bonusRemaining * 360 - 90
+                        // Otherwise start and end angle are the same
+                        Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: -card.bonusRemaining * 360 - 90))
+                    }
+                }
+                .padding(DrawingConstants.circlePadding)
+                .opacity(DrawingConstants.circleOpacity)
                 Text(card.content)
                     .rotationEffect(Angle(degrees: card.isMatched ? 360 : 0))
                     .animation(.linear(duration: 1).repeatForever(autoreverses: false))
@@ -41,6 +58,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: MemoryGameCard(content: "👻", id: 1)).foregroundColor(.red)
+        CardView(card: MemoryGameCard(id: 1, content: "👻")).foregroundColor(.red)
     }
 }

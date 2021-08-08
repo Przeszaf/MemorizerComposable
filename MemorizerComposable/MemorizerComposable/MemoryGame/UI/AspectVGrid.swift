@@ -59,7 +59,7 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
 
 struct AspectVGrid_Previews: PreviewProvider {
     static var previews: some View {
-        AspectVGrid(items: [MemoryGameCard(content: "12", id: 1)], aspectRatio: 2/3) { item in
+        AspectVGrid(items: [MemoryGameCard(id: 1, content: "12")], aspectRatio: 2/3) { item in
             return Text("123")
         }
     }

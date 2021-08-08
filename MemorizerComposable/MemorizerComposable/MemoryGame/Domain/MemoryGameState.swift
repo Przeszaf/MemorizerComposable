@@ -18,8 +18,9 @@ struct MemoryGameState: Equatable {
         cards = []
         for pairIndex in 0 ..< numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
-            cards.append(MemoryGameCard(content: content, id: pairIndex * 2))
-            cards.append(MemoryGameCard(content: content, id: pairIndex * 2 + 1))
+            cards.append(MemoryGameCard(id: pairIndex * 2, content: content))
+            cards.append(MemoryGameCard(id: pairIndex * 2 + 1, content: content))
         }
+//        cards.shuffle()
     }
 }

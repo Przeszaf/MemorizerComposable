@@ -9,6 +9,8 @@ import Foundation
 
 enum MemoryGameAction: Equatable {
     case choose(card: MemoryGameCard)
+    case shuffle
+    case restart
 }
 
 struct ApiError: Error, Equatable {}
