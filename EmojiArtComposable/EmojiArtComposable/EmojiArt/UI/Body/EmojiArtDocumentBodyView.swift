@@ -54,8 +54,7 @@ struct EmojiArtDocumentBodyView: View {
                             viewStore: viewStore
                         )
                     }
-                    .gesture(zoomGesture())
-                    .gesture(panGesture())
+                    .gesture(zoomGesture().simultaneously(with: panGesture()))
             }
         }
     }
