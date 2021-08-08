@@ -24,10 +24,22 @@ class EmojiArtDocumentReducer {
             switch action {
             case .bodyAction(.autosave):
                 guard let jsonData = try? state.bodyState?.json() else { return .none }
-                env.documentSaver.save(jsonData, env.documentSaver.autosaveFileName)
-                return .none
+                return Effect(value: EmojiArtDocumentAction.autosave(jsonData))
+                    .delay(for: 5.0, scheduler: env.timerScheduler)
+                    .eraseToEffect()
+                    .cancellable(id: "EmojiArtDocumentActionAutosave", cancelInFlight: true)
             case .onAppear:
-                state.bodyState = EmojiArtDocumentBodyState()
+                if let data = env.documentSaver.load(env.documentSaver.autosaveFileName),
+                   let savedBodyState = try? EmojiArtDocumentBodyState(jsonData: data) {
+                    state.bodyState = savedBodyState
+                    return Effect(value: EmojiArtDocumentAction
+                        .bodyAction(.setBackground(background: savedBodyState.background)))
+                } else {
+                    state.bodyState = EmojiArtDocumentBodyState()
+                    return .none
+                }
+            case let .autosave(jsonData):
+                env.documentSaver.save(jsonData, env.documentSaver.autosaveFileName)
                 return .none
             default:
                 return .none

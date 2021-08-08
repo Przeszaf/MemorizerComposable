@@ -10,4 +10,5 @@ import UIKit
 enum EmojiArtDocumentAction: Equatable {
     case bodyAction(EmojiArtDocumentBodyAction)
     case onAppear
+    case autosave(Data)
 }

@@ -17,11 +17,12 @@ struct EmojiArtDocumentBuilder {
         Store(initialState: getInitialState(),
               reducer: EmojiArtDocumentReducer.reducer,
               environment: EmojiArtDocumentEnvironment(
-                  documentSaver: .live
+                  documentSaver: .live,
+                  timerScheduler: .main
               ))
     }
 
     func getInitialState() -> EmojiArtDocumentState {
-        EmojiArtDocumentState() 
+        EmojiArtDocumentState()
     }
 }

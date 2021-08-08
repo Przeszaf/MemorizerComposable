@@ -16,6 +16,9 @@ struct EmojiArtDocumentBodyState: Equatable, Codable {
     
     init(jsonData: Data) throws {
         self = try JSONDecoder().decode(Self.self, from: jsonData)
+        if let highestEmojiId = self.emojis.sorted(by: {$0.id > $1.id}).first?.id {
+            Emoji.emojiId = highestEmojiId
+        }
     }
     
     init() {

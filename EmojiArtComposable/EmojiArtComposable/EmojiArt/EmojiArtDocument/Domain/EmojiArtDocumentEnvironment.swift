@@ -11,4 +11,5 @@ import UIKit
 
 struct EmojiArtDocumentEnvironment {
     var documentSaver: EmojiArtDocumentSaver
+    var timerScheduler: DispatchQueue
 }
