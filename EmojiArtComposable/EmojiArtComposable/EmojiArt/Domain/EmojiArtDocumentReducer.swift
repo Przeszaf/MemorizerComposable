@@ -9,30 +9,54 @@ import ComposableArchitecture
 import UIKit
 
 class EmojiArtDocumentReducer {
-    static let reducer = Reducer<EmojiArtDocumentState, EmojiArtDocumentAction, EmojiArtDocumentEnvironment>
-        .init { state, action, _ in
-            switch action {
-            case let .addEmoji(emoji):
-                state.emojis.append(EmojiArtDocumentState.Emoji(
-                    text: emoji.text,
-                    x: emoji.x,
-                    y: emoji.y,
-                    size: emoji.size
-                ))
-            case let .addBackground(background):
-                state.background = background
-            case let .moveEmoji(emoji, offset):
-                if let index = state.emojis.index(matching: emoji) {
-                    state.emojis[index].x += Int(offset.width)
-                    state.emojis[index].y += Int(offset.height)
-                }
-            case let .scaleEmoji(emoji, scale):
-                if let index = state.emojis.index(matching: emoji) {
-                    state.emojis[index]
-                        .size = Int((CGFloat(state.emojis[index].size) * scale)
-                            .rounded(.toNearestOrAwayFromZero))
-                }
+    static let reducer = Reducer<
+        EmojiArtDocumentState,
+        EmojiArtDocumentAction,
+        EmojiArtDocumentEnvironment
+    >
+    .init { state, action, environment in
+        
+        switch action {
+        case let .addEmoji(emoji):
+            state.emojis.append(EmojiArtDocumentState.Emoji(
+                text: emoji.text,
+                x: emoji.x,
+                y: emoji.y,
+                size: emoji.size
+            ))
+        case let .addBackground(background):
+            state.background = background
+            switch background {
+            case .blank:
+                return Effect(value: EmojiArtDocumentAction.setBackground(image: nil))
+                    .eraseToEffect()
+            case let .imageData(data):
+                return Effect(value: EmojiArtDocumentAction.setBackground(image: UIImage(data: data)))
+                                    .eraseToEffect()
+            case let .url(url):
+                state.backgroundImage = nil
+                state.backgroundImageFetchStatus = .fetching
+                return environment.imageClient.fetchFromURL(url)
+                    .receive(on: environment.mainQueue)
+                    .eraseToEffect()
+                    .map(EmojiArtDocumentAction.setBackground)
+                    .cancellable(id: ImageClient.ImageClientFetchId(), cancelInFlight: true)
             }
-            return .none
+        case let .moveEmoji(emoji, offset):
+            if let index = state.emojis.index(matching: emoji) {
+                state.emojis[index].x += Int(offset.width)
+                state.emojis[index].y += Int(offset.height)
+            }
+        case let .scaleEmoji(emoji, scale):
+            if let index = state.emojis.index(matching: emoji) {
+                state.emojis[index]
+                    .size = Int((CGFloat(state.emojis[index].size) * scale)
+                        .rounded(.toNearestOrAwayFromZero))
+            }
+        case let .setBackground(image):
+            state.backgroundImage = image
+            state.backgroundImageFetchStatus = .idle
         }
+        return .none
+    }
 }

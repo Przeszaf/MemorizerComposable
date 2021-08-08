@@ -5,12 +5,18 @@
 //  Created by Przemyslaw Szafulski on 04/08/2021.
 //
 
-import Foundation
+import UIKit
 
 struct EmojiArtDocumentState: Equatable {
     var background = Background.blank
     var emojis = [Emoji]()
-
+    var backgroundImage: UIImage?
+    var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
+    
+    enum BackgroundImageFetchStatus: Equatable {
+        case idle
+        case fetching
+    }
     
     struct Emoji: Equatable, Identifiable, Hashable {
         

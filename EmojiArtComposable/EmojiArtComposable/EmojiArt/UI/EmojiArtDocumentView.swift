@@ -16,7 +16,7 @@ struct EmojiArtDocumentView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(spacing: 0) {
-                EmojiArtDocumentBodyView(viewStore: viewStore)
+                EmojiArtDocumentBodyView(store: store)
                 EmojiArtDocumentPaletteView(viewStore: viewStore)
                     .font(.system(size: defaultEmojiFontSize))
             }

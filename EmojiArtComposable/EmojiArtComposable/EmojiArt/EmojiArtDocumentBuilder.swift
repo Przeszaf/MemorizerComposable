@@ -16,7 +16,10 @@ struct EmojiArtDocumentBuilder {
     func getStore() -> Store<EmojiArtDocumentState, EmojiArtDocumentAction> {
         Store(initialState: getInitialState(),
               reducer: EmojiArtDocumentReducer.reducer,
-              environment: EmojiArtDocumentEnvironment())
+              environment: EmojiArtDocumentEnvironment(
+                  imageClient: .live,
+                  mainQueue: DispatchQueue.main
+              ))
     }
 
     func getInitialState() -> EmojiArtDocumentState {
