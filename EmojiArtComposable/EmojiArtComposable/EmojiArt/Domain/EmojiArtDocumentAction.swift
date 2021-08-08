@@ -9,8 +9,8 @@ import UIKit
 
 enum EmojiArtDocumentAction: Equatable {
     case addEmoji(emoji: EmojiArtDocumentState.Emoji)
-    case addBackground(background: EmojiArtDocumentState.Background)
+    case setBackground(background: EmojiArtDocumentState.Background)
     case moveEmoji(emoji: EmojiArtDocumentState.Emoji, offset: CGSize)
     case scaleEmoji(emoji: EmojiArtDocumentState.Emoji, scale: CGFloat)
-    case setBackground(image: UIImage?)
+    case setBackgroundImage(image: UIImage?)
 }

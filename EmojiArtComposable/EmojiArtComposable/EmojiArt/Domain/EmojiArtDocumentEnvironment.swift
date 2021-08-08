@@ -26,7 +26,6 @@ extension ImageClient {
             return Effect<UIImage?, Never>.future { callback in
                 DispatchQueue.global(qos: .userInitiated).async {
                     let imageData = try? Data(contentsOf: url)
-                    print("Fetched image")
                     if let imageData = imageData {
                         callback(.success(UIImage(data: imageData)))
                     } else {
