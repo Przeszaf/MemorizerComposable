@@ -23,19 +23,19 @@ class EmojiArtDocumentBodyReducer {
                 y: emoji.y,
                 size: emoji.size
             ))
-            return Effect(value: EmojiArtDocumentBodyAction.autosave)
+            return Effect(value: EmojiArtDocumentBodyAction.tryAutosaving)
         case let .setBackground(background):
             state.background = background
             switch background {
             case .blank:
                 return .merge(
                     Effect(value: EmojiArtDocumentBodyAction.setBackgroundImage(image: nil)),
-                    Effect(value: EmojiArtDocumentBodyAction.autosave)
+                    Effect(value: EmojiArtDocumentBodyAction.tryAutosaving)
                 )
             case let .imageData(data):
                 return .merge(
                     Effect(value: EmojiArtDocumentBodyAction.setBackgroundImage(image: UIImage(data: data))),
-                    Effect(value: EmojiArtDocumentBodyAction.autosave)
+                    Effect(value: EmojiArtDocumentBodyAction.tryAutosaving)
                 )
             case let .url(url):
                 state.backgroundImage = nil
@@ -46,7 +46,7 @@ class EmojiArtDocumentBodyReducer {
                         .eraseToEffect()
                         .map(EmojiArtDocumentBodyAction.setBackgroundImage)
                         .cancellable(id: EmojiArtDocumentBodyImageClient.ImageClientFetchId(), cancelInFlight: true),
-                    Effect(value: EmojiArtDocumentBodyAction.autosave)
+                    Effect(value: EmojiArtDocumentBodyAction.tryAutosaving)
                 )
             }
         case let .moveEmoji(emoji, offset):
@@ -54,18 +54,18 @@ class EmojiArtDocumentBodyReducer {
                 state.emojis[index].x += Int(offset.width)
                 state.emojis[index].y += Int(offset.height)
             }
-            return Effect(value: EmojiArtDocumentBodyAction.autosave)
+            return Effect(value: EmojiArtDocumentBodyAction.tryAutosaving)
         case let .scaleEmoji(emoji, scale):
             if let index = state.emojis.index(matching: emoji) {
                 state.emojis[index]
                     .size = Int((CGFloat(state.emojis[index].size) * scale)
                         .rounded(.toNearestOrAwayFromZero))
             }
-            return Effect(value: EmojiArtDocumentBodyAction.autosave)
+            return Effect(value: EmojiArtDocumentBodyAction.tryAutosaving)
         case let .setBackgroundImage(image):
             state.backgroundImage = image
             state.backgroundImageFetchStatus = .idle
-        case .autosave:
+        case .tryAutosaving:
             return .none
         }
         return .none

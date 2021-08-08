@@ -13,5 +13,5 @@ enum EmojiArtDocumentBodyAction: Equatable {
     case moveEmoji(emoji: EmojiArtDocumentBodyState.Emoji, offset: CGSize)
     case scaleEmoji(emoji: EmojiArtDocumentBodyState.Emoji, scale: CGFloat)
     case setBackgroundImage(image: UIImage?)
-    case autosave
+    case tryAutosaving
 }

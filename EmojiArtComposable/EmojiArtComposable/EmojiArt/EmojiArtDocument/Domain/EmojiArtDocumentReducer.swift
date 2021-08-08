@@ -22,7 +22,7 @@ class EmojiArtDocumentReducer {
             }),
         .init { state, action, env in
             switch action {
-            case .bodyAction(.autosave):
+            case .bodyAction(.tryAutosaving):
                 guard let jsonData = try? state.bodyState?.json() else { return .none }
                 return Effect(value: EmojiArtDocumentAction.autosave(jsonData))
                     .delay(for: 5.0, scheduler: env.timerScheduler)
