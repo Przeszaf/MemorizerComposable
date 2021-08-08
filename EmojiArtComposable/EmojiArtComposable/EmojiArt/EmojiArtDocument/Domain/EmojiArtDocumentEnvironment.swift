@@ -10,7 +10,5 @@ import ComposableArchitecture
 import UIKit
 
 struct EmojiArtDocumentEnvironment {
-    var imageClient: EmojiArtDocumentImageClient
     var documentSaver: EmojiArtDocumentSaver
-    var mainQueue: DispatchQueue
 }

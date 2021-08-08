@@ -8,7 +8,7 @@
 import ComposableArchitecture
 
 struct EmojiArtDocumentSaver {
-    static let autosaveFileName = "Autosaved.emojiart"
+    let autosaveFileName = "Autosaved.emojiart"
     var save: (Data, String) -> Void
 }
 

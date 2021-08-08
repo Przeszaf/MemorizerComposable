@@ -17,9 +17,7 @@ struct EmojiArtDocumentBuilder {
         Store(initialState: getInitialState(),
               reducer: EmojiArtDocumentReducer.reducer,
               environment: EmojiArtDocumentEnvironment(
-                  imageClient: .live,
-                  documentSaver: .live,
-                  mainQueue: DispatchQueue.main
+                  documentSaver: .live
               ))
     }
 

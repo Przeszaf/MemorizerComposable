@@ -9,13 +9,13 @@ import ComposableArchitecture
 import Combine
 import UIKit
 
-struct EmojiArtDocumentImageClient {
+struct EmojiArtDocumentBodyImageClient {
     var fetchFromURL: (URL) -> Effect<UIImage?, Never>
     
     struct ImageClientFetchId: Hashable {}
 }
 
-extension EmojiArtDocumentImageClient {
+extension EmojiArtDocumentBodyImageClient {
     static let live = Self(
         fetchFromURL: { url in
             return Effect<UIImage?, Never>.future { callback in

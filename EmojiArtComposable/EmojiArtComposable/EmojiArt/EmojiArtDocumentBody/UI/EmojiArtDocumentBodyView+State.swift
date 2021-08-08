@@ -9,11 +9,11 @@ import UIKit
 
 extension EmojiArtDocumentBodyView {
     struct ViewState: Equatable {
-        var emojis: [EmojiArtDocumentState.Emoji]
+        var emojis: [EmojiArtDocumentBodyState.Emoji]
         var backgroundImage: UIImage?
-        var backgroundImageFetchStatus: EmojiArtDocumentState.BackgroundImageFetchStatus
+        var backgroundImageFetchStatus: EmojiArtDocumentBodyState.BackgroundImageFetchStatus
         
-        init(state: EmojiArtDocumentState) {
+        init(state: EmojiArtDocumentBodyState) {
             self.emojis = state.emojis
             self.backgroundImage = state.backgroundImage
             self.backgroundImageFetchStatus = state.backgroundImageFetchStatus

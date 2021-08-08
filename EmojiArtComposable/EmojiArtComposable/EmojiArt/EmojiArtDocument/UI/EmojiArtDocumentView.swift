@@ -16,10 +16,16 @@ struct EmojiArtDocumentView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(spacing: 0) {
-                EmojiArtDocumentBodyView(store: store, defaultEmojiFontSize: defaultEmojiFontSize)
-                    .clipped()
+                IfLetStore(self.store.scope(state: \.bodyState, action: EmojiArtDocumentAction.bodyAction)) { store in
+                    EmojiArtDocumentBodyView(store: store, defaultEmojiFontSize: defaultEmojiFontSize)
+                } else: {
+                    Color.white
+                }
                 EmojiArtDocumentPaletteView(viewStore: viewStore)
                     .font(.system(size: defaultEmojiFontSize))
+            }
+            .onAppear {
+                viewStore.send(.onAppear)
             }
         }
     }

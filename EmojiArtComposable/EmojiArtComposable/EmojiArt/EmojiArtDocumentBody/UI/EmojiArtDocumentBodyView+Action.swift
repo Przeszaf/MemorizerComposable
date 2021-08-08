@@ -9,14 +9,14 @@ import UIKit
 
 extension EmojiArtDocumentBodyView {
     enum ViewAction: Equatable {
-        case addEmoji(emoji: EmojiArtDocumentState.Emoji)
-        case setBackground(background: EmojiArtDocumentState.Background)
-        case moveEmoji(emoji: EmojiArtDocumentState.Emoji, offset: CGSize)
-        case scaleEmoji(emoji: EmojiArtDocumentState.Emoji, scale: CGFloat)
+        case addEmoji(emoji: EmojiArtDocumentBodyState.Emoji)
+        case setBackground(background: EmojiArtDocumentBodyState.Background)
+        case moveEmoji(emoji: EmojiArtDocumentBodyState.Emoji, offset: CGSize)
+        case scaleEmoji(emoji: EmojiArtDocumentBodyState.Emoji, scale: CGFloat)
     }
 }
 
-extension EmojiArtDocumentAction {
+extension EmojiArtDocumentBodyAction {
     init(action: EmojiArtDocumentBodyView.ViewAction) {
         switch action {
         case let .addEmoji(emoji):

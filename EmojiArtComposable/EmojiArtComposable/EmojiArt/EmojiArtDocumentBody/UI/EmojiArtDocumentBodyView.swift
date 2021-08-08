@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct EmojiArtDocumentBodyView: View {
-    let store: Store<EmojiArtDocumentState, EmojiArtDocumentAction>
+    let store: Store<EmojiArtDocumentBodyState, EmojiArtDocumentBodyAction>
     let defaultEmojiFontSize: CGFloat
 
     @State private var steadyStateZoomScale: CGFloat = 1
@@ -26,35 +26,34 @@ struct EmojiArtDocumentBodyView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            WithViewStore(store
-                .scope(state: ViewState.init, action: EmojiArtDocumentAction.init)) { viewStore in
-                    ZStack {
-                        Color.white.overlay(
-                            OptionalImage(uiImage: viewStore.backgroundImage)
+            WithViewStore(store.scope(state: ViewState.init, action: EmojiArtDocumentBodyAction.init)) { viewStore in
+                ZStack {
+                    Color.white.overlay(
+                        OptionalImage(uiImage: viewStore.backgroundImage)
+                            .scaleEffect(zoomScale)
+                            .position(convertFromEmojiCoordinates((0, 0), in: geometry))
+                    )
+                    .gesture(doubleTapToZoom(in: geometry.size, viewStore: viewStore))
+                    if viewStore.backgroundImageFetchStatus == .fetching {
+                        ProgressView().scaleEffect(2)
+                    } else {
+                        ForEach(viewStore.emojis) { emoji in
+                            Text(emoji.text)
+                                .font(.system(size: fontSize(for: emoji)))
                                 .scaleEffect(zoomScale)
-                                .position(convertFromEmojiCoordinates((0, 0), in: geometry))
-                        )
-                        .gesture(doubleTapToZoom(in: geometry.size, viewStore: viewStore))
-                        if viewStore.backgroundImageFetchStatus == .fetching {
-                            ProgressView().scaleEffect(2)
-                        } else {
-                            ForEach(viewStore.emojis) { emoji in
-                                Text(emoji.text)
-                                    .font(.system(size: fontSize(for: emoji)))
-                                    .scaleEffect(zoomScale)
-                                    .position(position(for: emoji, in: geometry))
-                            }
+                                .position(position(for: emoji, in: geometry))
                         }
                     }
-                    .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in
-                        drop(
-                            providers: providers,
-                            location: location,
-                            in: geometry,
-                            viewStore: viewStore
-                        )
-                    }
-                    .gesture(zoomGesture().simultaneously(with: panGesture()))
+                }
+                .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in
+                    drop(
+                        providers: providers,
+                        location: location,
+                        in: geometry,
+                        viewStore: viewStore
+                    )
+                }
+                .gesture(zoomGesture().simultaneously(with: panGesture()))
             }
         }
     }
@@ -79,7 +78,7 @@ struct EmojiArtDocumentBodyView: View {
             found = providers.loadObjects(ofType: String.self) { string in
                 if let emojiChar = string.first, emojiChar.isEmoji {
                     let location = convertToEmojiCoordinates(location, in: geometry)
-                    let emojiToAdd = EmojiArtDocumentState.Emoji(
+                    let emojiToAdd = EmojiArtDocumentBodyState.Emoji(
                         text: String(emojiChar),
                         x: location.x,
                         y: location.y,
@@ -92,7 +91,7 @@ struct EmojiArtDocumentBodyView: View {
         return found
     }
 
-    private func fontSize(for emoji: EmojiArtDocumentState.Emoji) -> CGFloat {
+    private func fontSize(for emoji: EmojiArtDocumentBodyState.Emoji) -> CGFloat {
         CGFloat(emoji.size)
     }
 
@@ -115,7 +114,7 @@ struct EmojiArtDocumentBodyView: View {
         )
     }
 
-    private func position(for emoji: EmojiArtDocumentState.Emoji,
+    private func position(for emoji: EmojiArtDocumentBodyState.Emoji,
                           in geometry: GeometryProxy) -> CGPoint {
         convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry)
     }
@@ -161,6 +160,11 @@ struct EmojiArtDocumentBodyView: View {
 
 struct EmojiArtDocumentBodyView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiArtDocumentBodyView(store: EmojiArtDocumentBuilder().getStore(), defaultEmojiFontSize: 40)
+        let store = Store(
+            initialState: EmojiArtDocumentBodyState(),
+            reducer: EmojiArtDocumentBodyReducer.reducer,
+            environment: .init(imageClient: .live, mainQueue: .main)
+        )
+        EmojiArtDocumentBodyView(store: store, defaultEmojiFontSize: 40)
     }
 }
