@@ -7,18 +7,26 @@
 
 import UIKit
 
-struct EmojiArtDocumentState: Equatable {
+struct EmojiArtDocumentState: Equatable, Codable {
     var background = Background.blank
     var emojis = [Emoji]()
     var backgroundImage: UIImage?
     var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
+    
+    init(jsonData: Data) throws {
+        self = try JSONDecoder().decode(Self.self, from: jsonData)
+    }
+    
+    init() {
+        
+    }
     
     enum BackgroundImageFetchStatus: Equatable {
         case idle
         case fetching
     }
     
-    struct Emoji: Equatable, Identifiable, Hashable {
+    struct Emoji: Equatable, Identifiable, Hashable, Codable {
         
         static var emojiId = 0
         
@@ -36,5 +44,13 @@ struct EmojiArtDocumentState: Equatable {
             self.id = Emoji.emojiId
             Emoji.emojiId += 1
         }
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case background, emojis
+    }
+    
+    func json() throws -> Data {
+        return try JSONEncoder().encode(self)
     }
 }

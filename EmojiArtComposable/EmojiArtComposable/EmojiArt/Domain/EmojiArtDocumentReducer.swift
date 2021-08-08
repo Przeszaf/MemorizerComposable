@@ -15,7 +15,6 @@ class EmojiArtDocumentReducer {
         EmojiArtDocumentEnvironment
     >
     .init { state, action, environment in
-
         switch action {
         case let .addEmoji(emoji):
             state.emojis.append(EmojiArtDocumentState.Emoji(
@@ -24,8 +23,10 @@ class EmojiArtDocumentReducer {
                 y: emoji.y,
                 size: emoji.size
             ))
+            autosave(state: state, environment: environment)
         case let .setBackground(background):
             state.background = background
+            autosave(state: state, environment: environment)
             switch background {
             case .blank:
                 return Effect(value: EmojiArtDocumentAction.setBackgroundImage(image: nil))
@@ -40,23 +41,30 @@ class EmojiArtDocumentReducer {
                     .receive(on: environment.mainQueue)
                     .eraseToEffect()
                     .map(EmojiArtDocumentAction.setBackgroundImage)
-                    .cancellable(id: ImageClient.ImageClientFetchId(), cancelInFlight: true)
+                    .cancellable(id: EmojiArtDocumentImageClient.ImageClientFetchId(), cancelInFlight: true)
             }
         case let .moveEmoji(emoji, offset):
             if let index = state.emojis.index(matching: emoji) {
                 state.emojis[index].x += Int(offset.width)
                 state.emojis[index].y += Int(offset.height)
             }
+            autosave(state: state, environment: environment)
         case let .scaleEmoji(emoji, scale):
             if let index = state.emojis.index(matching: emoji) {
                 state.emojis[index]
                     .size = Int((CGFloat(state.emojis[index].size) * scale)
                         .rounded(.toNearestOrAwayFromZero))
             }
+            autosave(state: state, environment: environment)
         case let .setBackgroundImage(image):
             state.backgroundImage = image
             state.backgroundImageFetchStatus = .idle
         }
         return .none
+    }
+
+    private static func autosave(state: EmojiArtDocumentState, environment: EmojiArtDocumentEnvironment) {
+        guard let jsonData = try? state.json() else { return }
+        environment.documentSaver.save(jsonData, EmojiArtDocumentSaver.autosaveFileName)
     }
 }

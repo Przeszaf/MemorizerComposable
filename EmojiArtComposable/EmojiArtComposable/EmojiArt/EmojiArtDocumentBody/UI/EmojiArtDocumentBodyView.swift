@@ -83,7 +83,7 @@ struct EmojiArtDocumentBodyView: View {
                         text: String(emojiChar),
                         x: location.x,
                         y: location.y,
-                        size: Int(defaultEmojiFontSize / zoomScale)
+                        size: Int(defaultEmojiFontSize)
                     )
                     viewStore.send(.addEmoji(emoji: emojiToAdd))
                 }
