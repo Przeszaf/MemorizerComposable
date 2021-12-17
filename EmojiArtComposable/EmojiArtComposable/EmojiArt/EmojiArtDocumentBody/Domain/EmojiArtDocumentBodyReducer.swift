@@ -13,8 +13,7 @@ class EmojiArtDocumentBodyReducer {
         EmojiArtDocumentBodyState,
         EmojiArtDocumentBodyAction,
         EmojiArtDocumentBodyEnvironment
-    >
-    .init { state, action, environment in
+    >.init { state, action, environment in
         switch action {
         case let .addEmoji(emoji):
             state.emojis.append(EmojiArtDocumentBodyState.Emoji(
